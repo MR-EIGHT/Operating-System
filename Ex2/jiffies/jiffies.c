@@ -3,7 +3,7 @@
 #include <linux/kernel.h>
 #include <linux/proc_fs.h>
 #include <asm/uaccess.h>
-#include<linux/jiffies.h>
+#include <linux/jiffies.h>
 
 
 #define BUFFER_SIZE 128
@@ -24,7 +24,7 @@ static struct proc_ops my_fops = {
 static int proc_init(void)
 {
 
-        // creates the /proc/hello entry
+        // creates the /proc/jiffies entry
         // the following function call is a wrapper for
         // proc_create_data() passing NULL as the last argument
         proc_create(PROC_NAME, 0, NULL, &my_fops);
@@ -37,14 +37,14 @@ static int proc_init(void)
 /* This function is called when the module is removed. */
 static void proc_exit(void) {
 
-        // removes the /proc/hello entry
+        // removes the /proc/jiffies entry
         remove_proc_entry(PROC_NAME, NULL);
 
         printk( KERN_INFO "/proc/%s removed\n", PROC_NAME);
 }
 
 /**
- * This function is called each time the /proc/hello is read.
+ * This function is called each time the /proc/jiffies is read.
  * 
  * This function is called repeatedly until it returns 0, so
  * there must be logic that ensures it ultimately returns 0

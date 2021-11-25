@@ -1,13 +1,15 @@
+ 
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/proc_fs.h>
 #include <asm/uaccess.h>
-#include<linux/jiffies.h>
-#include<asm/param.h>
-
+#include <linux/jiffies.h>
+#include <asm/param.h>
+#include <linux/slab.h>
 #define BUFFER_SIZE 128
 #define PROC_NAME "seconds"
+long start_jiffies;
 
 /**
  * Function prototypes
@@ -15,7 +17,7 @@
 static ssize_t proc_read(struct file *file, char *buf, size_t count, loff_t *pos);
 
 static struct proc_ops my_fops = {
-        
+
         .proc_read = proc_read,
 };
 
@@ -24,13 +26,12 @@ static struct proc_ops my_fops = {
 static int proc_init(void)
 {
 
-        // creates the /proc/hello entry
+        // creates the /proc/seconds entry
         // the following function call is a wrapper for
         // proc_create_data() passing NULL as the last argument
         proc_create(PROC_NAME, 0, NULL, &my_fops);
-
         printk(KERN_INFO "/proc/%s created\n", PROC_NAME);
-
+	start_jiffies = jiffies;
 	return 0;
 }
 
@@ -39,16 +40,15 @@ static void proc_exit(void) {
 
         // removes the /proc/hello entry
         remove_proc_entry(PROC_NAME, NULL);
-
         printk( KERN_INFO "/proc/%s removed\n", PROC_NAME);
 }
 
 /**
- * This function is called each time the /proc/hello is read.
- * 
+ * This function is called each time the /proc/seconds is read.
+ *
  * This function is called repeatedly until it returns 0, so
  * there must be logic that ensures it ultimately returns 0
- * once it has collected the data that is to go into the 
+ * once it has collected the data that is to go into the
  * corresponding /proc file.
  *
  * params:
@@ -70,9 +70,9 @@ static ssize_t proc_read(struct file *file, char __user *usr_buf, size_t count, 
         }
 
         completed = 1;
-	
-	long jf = jiffies;
-	long correct_jiffies = jf - INITIAL_JIFFIES;
+
+
+	long correct_jiffies = jiffies - start_jiffies;
        	long sec = correct_jiffies / HZ;
         rv = sprintf(buffer, "%ld\n",sec);
 
