@@ -35,7 +35,7 @@ int main((int argc, char **argv)) {
         memcpy(mapm, &start, sizeof(start));
 
         execvp(argv[1], &argv[1]);
-        exit(0)
+        exit(0);
         
     } else { 
 
@@ -47,7 +47,7 @@ int main((int argc, char **argv)) {
         gettimeofday(&end, NULL);
 
         struct timeval * start = (struct timeval *) mapm;
-        printf("%ld.%ld", (&end)->tv_sec - start->tv_sec,(&end)->tv_usec - start->tv_usec);
+        printf("Elapsed time: %f", ( (&end)->tv_sec - start->tv_sec ) + (( (&end)->tv_usec - start->tv_usec) / 1000000.0));
         shm_unlink(name);
 
     }
