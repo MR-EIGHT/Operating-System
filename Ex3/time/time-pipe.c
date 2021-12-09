@@ -9,7 +9,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-int main((int argc, char **argv)) {
+int main(int argc, char **argv) {
 
     pid_t pid;
     int pipe_fd[2];
@@ -47,8 +47,7 @@ int main((int argc, char **argv)) {
         struct timeval start;
         read(pipe_fd[0],&start,sizeof(start));
 
-        struct timeval * start = (struct timeval *) mapm;
-        printf("Elapsed time: %f", ( (&end)->tv_sec - start->tv_sec ) + (( (&end)->tv_usec - start->tv_usec) / 1000000.0));
+        printf("Elapsed time: %f", ( (&end)->tv_sec - (&start)->tv_sec ) + (( (&end)->tv_usec - (&start)->tv_usec) / 1000000.0));
 
     }
 

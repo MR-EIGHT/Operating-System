@@ -8,7 +8,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-int main((int argc, char **argv)) {
+int main(int argc, char **argv) {
 if (argc != 2){
     printf("Wrong number of parameters!");
     return 1;
@@ -39,12 +39,12 @@ int number = atoi(argv[1]);
 
         }
         
-        printf(", %d",number);
 
 
         exit(0);
         
     } else { 
+	    wait(NULL);
 
     }
 
