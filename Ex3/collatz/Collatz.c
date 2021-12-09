@@ -35,10 +35,12 @@ int number = atoi(argv[1]);
                 number = (number*3) + 1;
             }
 
-        printf(",%d",number);
+        printf(", %d",number);
 
         }
         
+        printf(", %d",number);
+
 
         exit(0);
         
