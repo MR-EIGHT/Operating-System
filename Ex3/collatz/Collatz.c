@@ -16,6 +16,14 @@ if (argc != 2){
 
 int number = atoi(argv[1]);
 
+if (number < 0 )
+{
+    printf("Positive integer required!");
+    return 1;
+}
+
+
+
     pid_t pid;
     pid = fork();
     
