@@ -16,11 +16,10 @@ int main(int argc, char **argv) {
     int fd;
     int number = atoi(argv[1]);
 
-    if (number < 0 )
-{
-    printf("Positive integer required!");
-    return 1;
-}
+    if (number < 1) {
+        printf("Positive integer required!");
+        return 1;
+    }
 
     fd = shm_open(name, O_CREAT | O_RDWR, 0666);
     ftruncate(fd, SIZE);
@@ -29,38 +28,36 @@ int main(int argc, char **argv) {
     pid_t pid;
 
     pid = fork();
-    if (pid < 0) { 
+    if (pid < 0) {
         fprintf(stderr, "Fork Failed");
         return 1;
 
     } else if (pid == 0) {
 
-        int* mapm = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+        int *mapm = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
 
-        while (number != 1)
-        {
+        while (number != 1) {
             *mapm = number;
             mapm++;
-            if (number % 2 == 0){
-                number /= 2 ;
+            if (number % 2 == 0) {
+                number /= 2;
+            } else {
+                number = (number * 3) + 1;
             }
-            else{
-                number = (number*3) + 1;
-            }
-	}
-            *mapm= number;
+        }
+        *mapm = number;
 
         exit(0);
-        
-    } else { 
+
+    } else {
 
         wait(NULL);
 
-        int* mapm = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+        int *mapm = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
-        while(*mapm != 1){
-            printf("%d, ",*mapm);
+        while (*mapm != 1) {
+            printf("%d, ", *mapm);
             mapm++;
         }
         printf("1 \n");

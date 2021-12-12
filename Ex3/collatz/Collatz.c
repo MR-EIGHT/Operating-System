@@ -9,50 +9,45 @@
 #include <unistd.h>
 
 int main(int argc, char **argv) {
-if (argc != 2){
-    printf("Wrong number of parameters!");
-    return 1;
-}
+    if (argc != 2) {
+        printf("Wrong number of parameters!");
+        return 1;
+    }
 
-int number = atoi(argv[1]);
+    int number = atoi(argv[1]);
 
-if (number < 0 )
-{
-    printf("Positive integer required!");
-    return 1;
-}
-
+    if (number < 1) {
+        printf("Positive integer required!");
+        return 1;
+    }
 
 
     pid_t pid;
     pid = fork();
-    
-    if (pid < 0) { 
+
+    if (pid < 0) {
         fprintf(stderr, "Fork Failed");
         return 1;
-    
+
     } else if (pid == 0) {
 
-        printf("%d",number);
-        while (number != 1)
-        {
-            if (number % 2 == 0){
-                number /= 2 ;
-            }
-            else{
-                number = (number*3) + 1;
+        printf("%d", number);
+        while (number != 1) {
+            if (number % 2 == 0) {
+                number /= 2;
+            } else {
+                number = (number * 3) + 1;
             }
 
-        printf(", %d",number);
+            printf(", %d", number);
 
         }
-        
 
 
         exit(0);
-        
-    } else { 
-	    wait(NULL);
+
+    } else {
+        wait(NULL);
 
     }
 

@@ -22,12 +22,12 @@ int main(int argc, char **argv) {
     pid_t pid;
 
     pid = fork();
-    if (pid < 0) { 
+    if (pid < 0) {
         fprintf(stderr, "Fork Failed");
         return 1;
     } else if (pid == 0) {
 
-        void* mapm = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+        void *mapm = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
         struct timeval start;
         gettimeofday(&start, NULL);
@@ -36,18 +36,18 @@ int main(int argc, char **argv) {
 
         execvp(argv[1], &argv[1]);
         exit(0);
-        
-    } else { 
+
+    } else {
 
         wait(NULL);
 
-        void* mapm = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+        void *mapm = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
         struct timeval end;
         gettimeofday(&end, NULL);
 
-        struct timeval * start = (struct timeval *) mapm;
-        printf("Elapsed time: %f", ( (&end)->tv_sec - start->tv_sec ) + (( (&end)->tv_usec - start->tv_usec) / 1000000.0));
+        struct timeval *start = (struct timeval *) mapm;
+        printf("Elapsed time: %f", ((&end)->tv_sec - start->tv_sec) + (((&end)->tv_usec - start->tv_usec) / 1000000.0));
         shm_unlink(name);
 
     }
