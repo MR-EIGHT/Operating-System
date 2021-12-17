@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
     pid = fork();
 
     if (pid < 0) {
-        fprintf(stderr, "Fork Failed");
+        fprintf(stderr, "Fork Failed!");
         return 1;
 
     } else if (pid == 0) {

@@ -15,6 +15,11 @@ int main(int argc, char **argv) {
 
     int fd;
     int number = atoi(argv[1]);
+    
+    if (argc != 2) {
+        printf("Wrong number of parameters!");
+        return 1;
+    }
 
     if (number < 1) {
         printf("Positive integer required!");
