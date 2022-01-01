@@ -10,7 +10,7 @@ def generate_random_points(x1_bound, y1_bound, x2_bound, y2_bound, radius_circle
     x_circle = (x1_bound + x2_bound) / 2
     y_circle = (y1_bound + y2_bound) / 2
 
-    for _ in range(0,1000000):
+    for _ in range(0, 1000000):
         random_point = (random.uniform(x1_bound, x2_bound), random.uniform(y1_bound, y2_bound))
         distance = radius_circle ** 2 - ((random_point[0] - x_circle) ** 2 + (random_point[1] - y_circle) ** 2)
         if distance < 0:
