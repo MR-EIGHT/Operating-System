@@ -6,7 +6,7 @@ class PIDManager:
 
     def allocate_map(self):
         try:
-            self.bitmap = [1 for _ in range(0,self.Min_PID)] + ([0 for _ in range(self.Max_PID - self.Min_PID)])
+            self.bitmap = [1 for _ in range(0, self.Min_PID)] + ([0 for _ in range(self.Max_PID - self.Min_PID)])
             return 1
         except:
             return -1
@@ -23,7 +23,7 @@ class PIDManager:
         self.bitmap[pid] = 0
 
 
-P = PIDManager(3,5)
+P = PIDManager(3, 5)
 P.allocate_map()
 print(P.allocate_pid())
 print(P.allocate_pid())
