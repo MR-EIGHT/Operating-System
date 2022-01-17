@@ -23,9 +23,10 @@ class PIDManager:
         self.bitmap[pid] = 0
 
 
-P = PIDManager(3, 5)
-P.allocate_map()
-print(P.allocate_pid())
-print(P.allocate_pid())
-print(P.allocate_pid())
-print(P.allocate_pid())
+if __name__ == '__main__':
+    P = PIDManager(3, 5)
+    P.allocate_map()
+    print(P.allocate_pid())
+    print(P.allocate_pid())
+    print(P.allocate_pid())
+    print(P.allocate_pid())
